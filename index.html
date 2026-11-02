@@ -1,0 +1,156 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>아저시 반응기 🌈</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: linear-gradient(135deg, #17182e, #38305d);
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 550px;
+      padding: 30px;
+      background: #25263e;
+      border-radius: 24px;
+      box-shadow: 0 15px 40px #0005;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: clamp(26px, 6vw, 36px);
+    }
+
+    p {
+      color: #c4c4d5;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 110px;
+      padding: 16px;
+      border: 2px solid #555575;
+      border-radius: 14px;
+      background: #17182b;
+      color: white;
+      font-size: 17px;
+      resize: vertical;
+      outline: none;
+    }
+
+    textarea:focus {
+      border-color: #ed9bdb;
+    }
+
+    .answer {
+      margin-top: 20px;
+      padding: 25px 15px;
+      min-height: 110px;
+      border-radius: 14px;
+      background: #35304b;
+      font-size: clamp(19px, 5vw, 26px);
+      font-weight: bold;
+      overflow-wrap: anywhere;
+    }
+
+    button {
+      margin: 8px 4px 0;
+      padding: 11px 15px;
+      border: none;
+      border-radius: 10px;
+      background: #eaa6dd;
+      color: #25182d;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #ffd1f3;
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 20px 15px;
+      }
+
+      button {
+        font-size: 13px;
+        padding: 10px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="container">
+    <h1>🌈 아저시 반응기</h1>
+    <p>아저시를 불러보세요!</p>
+
+    <textarea id="userInput"
+      placeholder="아저시 아저시~! 아저시!"></textarea>
+
+    <div class="answer" id="answer"
+         aria-live="polite">
+      아저시를 불러줘! ✨
+    </div>
+
+    <div>
+      <button onclick="addWord('아저시')">아저시</button>
+      <button onclick="addWord('아저시~!')">아저시~!</button>
+      <button onclick="addWord('아저시!')">아저시!</button>
+    </div>
+  </main>
+
+  <script>
+    const input = document.getElementById("userInput");
+    const answer = document.getElementById("answer");
+
+    const responses = {
+      "아저시": "게이! 🌈",
+      "아저시~!": "께이~ 💅🌈✨",
+      "아저시!": "Gay."
+    };
+
+    function respond() {
+      const words = input.value.trim().split(/\s+/);
+
+      const results = words
+        .filter(word =>
+          Object.prototype.hasOwnProperty.call(responses, word)
+        )
+        .map(word => responses[word]);
+
+      answer.textContent = results.length
+        ? results.join(" ")
+        : "아저시를 불러줘! ✨";
+    }
+
+    function addWord(word) {
+      input.value = input.value.trim()
+        ? input.value.trim() + " " + word
+        : word;
+
+      respond();
+    }
+
+    input.addEventListener("input", respond);
+  </script>
+</body>
+</html>
